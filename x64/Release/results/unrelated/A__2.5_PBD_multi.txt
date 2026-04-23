@@ -1,0 +1,30 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2643.949613;RootUpperBound:2654.570727;RootGap:0.004001;RootRuntime:0.1430;NumCuts:535;NumIters:107;
+HeurUpperBound:2652.229940;HeurGap:0.003122;HeurRuntime:0.0610;
+FixingRuntime:0.1770;FixedNum:278
+LowerBound:2648.606408;UpperBound:2648.815047;Gap:0.000079;BranchTime:0.8650;Nodes:147.000000;Status:2;
+Instance: a05200_bounds.txt;
+RootLowerBound:5081.639340;RootUpperBound:5087.344757;RootGap:0.001121;RootRuntime:0.2600;NumCuts:540;NumIters:108;
+HeurUpperBound:5084.545392;HeurGap:0.000572;HeurRuntime:0.1480;
+FixingRuntime:0.2770;FixedNum:835
+LowerBound:5084.073791;UpperBound:5084.545383;Gap:0.000093;BranchTime:0.6790;Nodes:177.000000;Status:2;
+Instance: a10100_bounds.txt;
+RootLowerBound:2180.077251;RootUpperBound:2193.481530;RootGap:0.006111;RootRuntime:0.1740;NumCuts:1120;NumIters:112;
+HeurUpperBound:2181.700566;HeurGap:0.000744;HeurRuntime:0.0510;
+FixingRuntime:0.1340;FixedNum:906
+LowerBound:2181.560461;UpperBound:2181.700566;Gap:0.000064;BranchTime:0.0180;Nodes:1.000000;Status:2;
+Instance: a10200_bounds.txt;
+RootLowerBound:4258.689326;RootUpperBound:4272.224524;RootGap:0.003168;RootRuntime:0.1300;NumCuts:47;NumIters:112;
+HeurUpperBound:4263.653901;HeurGap:0.001164;HeurRuntime:0.0900;
+FixingRuntime:0.1930;FixedNum:1460
+LowerBound:4260.297647;UpperBound:4260.698153;Gap:0.000094;BranchTime:0.0290;Nodes:1.000000;Status:2;
+Instance: a20100_bounds.txt;
+RootLowerBound:1905.100746;RootUpperBound:1905.761248;RootGap:0.000347;RootRuntime:0.0850;NumCuts:125;NumIters:114;
+HeurUpperBound:1905.455648;HeurGap:0.000186;HeurRuntime:0.1420;
+FixingRuntime:0.0240;FixedNum:1944
+LowerBound:1905.354941;UpperBound:1905.455648;Gap:0.000053;BranchTime:0.0020;Nodes:1.000000;Status:2;
+Instance: a20200_bounds.txt;
+RootLowerBound:3828.188494;RootUpperBound:3831.023354;RootGap:0.000740;RootRuntime:0.1730;NumCuts:121;NumIters:114;
+HeurUpperBound:3829.181262;HeurGap:0.000259;HeurRuntime:0.1790;
+FixingRuntime:0.1180;FixedNum:3802
+LowerBound:3828.933741;UpperBound:3829.181262;Gap:0.000065;BranchTime:0.0040;Nodes:1.000000;Status:2;

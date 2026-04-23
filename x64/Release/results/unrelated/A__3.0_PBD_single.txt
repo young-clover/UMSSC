@@ -1,0 +1,30 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2533.256100;RootUpperBound:2543.602597;RootGap:0.004068;RootRuntime:0.1290;NumCuts:108;NumIters:108;
+HeurUpperBound:2539.015430;HeurGap:0.002268;HeurRuntime:0.0810;
+FixingRuntime:0.0900;FixedNum:374
+LowerBound:2538.187247;UpperBound:2538.396472;Gap:0.000082;BranchTime:1.8450;Nodes:1965.000000;Status:2;
+Instance: a05200_bounds.txt;
+RootLowerBound:4866.171681;RootUpperBound:4879.162653;RootGap:0.002663;RootRuntime:0.2060;NumCuts:109;NumIters:109;
+HeurUpperBound:4871.092395;HeurGap:0.001010;HeurRuntime:0.0770;
+FixingRuntime:0.3960;FixedNum:732
+LowerBound:4868.652649;UpperBound:4869.135937;Gap:0.000099;BranchTime:7.1000;Nodes:7716.000000;Status:2;
+Instance: a10100_bounds.txt;
+RootLowerBound:2075.870425;RootUpperBound:2090.963996;RootGap:0.007218;RootRuntime:0.1180;NumCuts:112;NumIters:112;
+HeurUpperBound:2077.301460;HeurGap:0.000689;HeurRuntime:0.0520;
+FixingRuntime:0.0610;FixedNum:940
+LowerBound:2077.096144;UpperBound:2077.301460;Gap:0.000099;BranchTime:0.0160;Nodes:1.000000;Status:2;
+Instance: a10200_bounds.txt;
+RootLowerBound:4051.821742;RootUpperBound:4061.571361;RootGap:0.002400;RootRuntime:0.1110;NumCuts:9;NumIters:113;
+HeurUpperBound:4055.413863;HeurGap:0.000886;HeurRuntime:0.0630;
+FixingRuntime:0.1310;FixedNum:1720
+LowerBound:4053.709990;UpperBound:4053.960491;Gap:0.000062;BranchTime:0.0570;Nodes:37.000000;Status:2;
+Instance: a20100_bounds.txt;
+RootLowerBound:1816.117453;RootUpperBound:1821.123288;RootGap:0.002749;RootRuntime:0.0850;NumCuts:7;NumIters:115;
+HeurUpperBound:1816.815568;HeurGap:0.000384;HeurRuntime:0.1770;
+FixingRuntime:0.0160;FixedNum:1952
+LowerBound:1816.458778;UpperBound:1816.458778;Gap:0.000000;BranchTime:0.0010;Nodes:1.000000;Status:2;
+Instance: a20200_bounds.txt;
+RootLowerBound:3650.167988;RootUpperBound:3655.153650;RootGap:0.001364;RootRuntime:0.1760;NumCuts:9;NumIters:115;
+HeurUpperBound:3652.720552;HeurGap:0.000699;HeurRuntime:0.1510;
+FixingRuntime:0.2150;FixedNum:3563
+LowerBound:3650.497000;UpperBound:3650.845237;Gap:0.000095;BranchTime:0.0210;Nodes:1.000000;Status:2;

@@ -1,0 +1,18 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2526.332408;RootUpperBound:2563.180006;RootGap:0.014376;RootRuntime:0.5340;
+LowerBound:2538.156303;UpperBound:2538.396821;Gap:0.000095;BranchTime:135.7160;Nodes:2095.000000;Status:2;
+Instance: a05200_bounds.txt;
+RootLowerBound:4854.443412;RootUpperBound:4874.046768;RootGap:0.004022;RootRuntime:0.9140;
+LowerBound:4868.284841;UpperBound:4869.135935;Gap:0.000175;BranchTime:999.0850;Nodes:9103.000000;Status:9;
+Instance: a10100_bounds.txt;
+RootLowerBound:2077.134204;RootUpperBound:2077.301935;RootGap:0.000081;RootRuntime:3.0520;
+LowerBound:2077.134204;UpperBound:2077.301935;Gap:0.000081;BranchTime:0.0010;Nodes:1.000000;Status:2;
+Instance: a10200_bounds.txt;
+RootLowerBound:4043.071957;RootUpperBound:4074.348843;RootGap:0.007677;RootRuntime:1.2740;
+LowerBound:4053.960660;UpperBound:4053.960613;Gap:0.000000;BranchTime:190.1510;Nodes:1824.000000;Status:2;
+Instance: a20100_bounds.txt;
+RootLowerBound:1812.501208;RootUpperBound:2345.043781;RootGap:0.227093;RootRuntime:1.0960;
+LowerBound:1821.053563;UpperBound:2050.811023;Gap:0.112032;BranchTime:998.9050;Nodes:3695.000000;Status:9;
+Instance: a20200_bounds.txt;
+RootLowerBound:3643.741880;RootUpperBound:3845.225317;RootGap:0.052398;RootRuntime:2.6000;
+LowerBound:3650.703273;UpperBound:3650.845329;Gap:0.000039;BranchTime:4.5130;Nodes:279.000000;Status:2;

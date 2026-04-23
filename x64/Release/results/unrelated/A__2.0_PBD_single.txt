@@ -1,0 +1,30 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2773.007115;RootUpperBound:2779.835900;RootGap:0.002457;RootRuntime:0.1180;NumCuts:107;NumIters:107;
+HeurUpperBound:2778.235702;HeurGap:0.001882;HeurRuntime:0.0750;
+FixingRuntime:0.1010;FixedNum:387
+LowerBound:2777.134540;UpperBound:2777.404711;Gap:0.000097;BranchTime:0.7870;Nodes:1157.000000;Status:2;
+Instance: a05200_bounds.txt;
+RootLowerBound:5332.455233;RootUpperBound:5340.312077;RootGap:0.001471;RootRuntime:0.2240;NumCuts:108;NumIters:108;
+HeurUpperBound:5335.132096;HeurGap:0.000502;HeurRuntime:0.1010;
+FixingRuntime:0.1820;FixedNum:862
+LowerBound:5334.253004;UpperBound:5334.785852;Gap:0.000100;BranchTime:2.5860;Nodes:3112.000000;Status:2;
+Instance: a10100_bounds.txt;
+RootLowerBound:2298.515674;RootUpperBound:2300.639728;RootGap:0.000923;RootRuntime:0.1170;NumCuts:111;NumIters:111;
+HeurUpperBound:2299.929890;HeurGap:0.000615;HeurRuntime:0.0650;
+FixingRuntime:0.0660;FixedNum:934
+LowerBound:2299.795526;UpperBound:2299.929890;Gap:0.000058;BranchTime:0.0030;Nodes:1.000000;Status:2;
+Instance: a10200_bounds.txt;
+RootLowerBound:4492.229859;RootUpperBound:4495.186457;RootGap:0.000658;RootRuntime:0.1180;NumCuts:7;NumIters:112;
+HeurUpperBound:4494.472968;HeurGap:0.000499;HeurRuntime:0.0660;
+FixingRuntime:0.0680;FixedNum:1817
+LowerBound:4493.380787;UpperBound:4493.829397;Gap:0.000100;BranchTime:0.4710;Nodes:1234.000000;Status:2;
+Instance: a20100_bounds.txt;
+RootLowerBound:2002.757014;RootUpperBound:2003.196394;RootGap:0.000219;RootRuntime:0.0840;NumCuts:6;NumIters:114;
+HeurUpperBound:2003.196394;HeurGap:0.000219;HeurRuntime:0.1440;
+FixingRuntime:0.0150;FixedNum:1971
+LowerBound:2003.159446;UpperBound:2003.196394;Gap:0.000018;BranchTime:0.0010;Nodes:1.000000;Status:2;
+Instance: a20200_bounds.txt;
+RootLowerBound:4027.763284;RootUpperBound:4029.096112;RootGap:0.000331;RootRuntime:0.1740;NumCuts:9;NumIters:115;
+HeurUpperBound:4028.933706;HeurGap:0.000291;HeurRuntime:0.1840;
+FixingRuntime:0.1000;FixedNum:3810
+LowerBound:4028.367220;UpperBound:4028.529626;Gap:0.000040;BranchTime:0.0060;Nodes:1.000000;Status:2;

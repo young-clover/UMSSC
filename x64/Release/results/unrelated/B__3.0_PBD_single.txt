@@ -1,0 +1,30 @@
+Instance: b05100_bounds.txt;
+RootLowerBound:2809.616189;RootUpperBound:2810.528926;RootGap:0.000325;RootRuntime:0.1350;NumCuts:110;NumIters:110;
+HeurUpperBound:2810.528926;HeurGap:0.000325;HeurRuntime:0.0460;
+FixingRuntime:0.0220;FixedNum:479
+LowerBound:2810.249157;UpperBound:2810.528926;Gap:0.000100;BranchTime:0.0510;Nodes:13.000000;Status:2;
+Instance: b05200_bounds.txt;
+RootLowerBound:5448.175052;RootUpperBound:5449.719577;RootGap:0.000283;RootRuntime:0.2410;NumCuts:109;NumIters:109;
+HeurUpperBound:5449.428604;HeurGap:0.000230;HeurRuntime:0.1170;
+FixingRuntime:0.1080;FixedNum:944
+LowerBound:5448.437027;UpperBound:5448.972919;Gap:0.000098;BranchTime:0.0810;Nodes:60.000000;Status:2;
+Instance: b10100_bounds.txt;
+RootLowerBound:2149.589664;RootUpperBound:2169.378060;RootGap:0.009122;RootRuntime:0.2150;NumCuts:113;NumIters:113;
+HeurUpperBound:2160.273631;HeurGap:0.004946;HeurRuntime:0.2020;
+FixingRuntime:0.7000;FixedNum:517
+LowerBound:2157.354432;UpperBound:2157.569857;Gap:0.000100;BranchTime:462.2380;Nodes:145182.000000;Status:2;
+Instance: b10200_bounds.txt;
+RootLowerBound:4388.607214;RootUpperBound:4411.689380;RootGap:0.005232;RootRuntime:0.1670;NumCuts:15;NumIters:114;
+HeurUpperBound:4401.516873;HeurGap:0.002933;HeurRuntime:0.2870;
+FixingRuntime:0.7680;FixedNum:895
+LowerBound:4391.183671;UpperBound:4401.516873;Gap:0.002348;BranchTime:998.8340;Nodes:84910.000000;Status:9;
+Instance: b20100_bounds.txt;
+RootLowerBound:1773.800207;RootUpperBound:1797.281613;RootGap:0.013065;RootRuntime:0.1490;NumCuts:16;NumIters:121;
+HeurUpperBound:1786.873651;HeurGap:0.007316;HeurRuntime:0.3150;
+FixingRuntime:0.4900;FixedNum:994
+LowerBound:1777.034883;UpperBound:1786.873651;Gap:0.005506;BranchTime:999.0480;Nodes:401412.000000;Status:9;
+Instance: b20200_bounds.txt;
+RootLowerBound:3547.436217;RootUpperBound:3560.250787;RootGap:0.003599;RootRuntime:0.2970;NumCuts:21;NumIters:119;
+HeurUpperBound:3558.111617;HeurGap:0.003000;HeurRuntime:0.3420;
+FixingRuntime:2.0740;FixedNum:2396
+LowerBound:3549.752243;UpperBound:3558.111617;Gap:0.002349;BranchTime:997.2940;Nodes:146788.000000;Status:9;
