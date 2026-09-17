@@ -5,7 +5,7 @@ This archive is distributed under the [MIT License](LICENSE).
 The software and data in this repository are a snapshot of the software and data that were used in the research reported on in the paper *A Perspective Benders Decomposition Approach for Unrelated Parallel-Machine Speed Scaling* by the authors.
 
 ## Description
-This project implements the experiments for the unrelated machine scheduling problem with speed scaling, written in C. It requires **Gurobi 13.01** to be configured. All programs are compiled with Microsoft Visual Studio 2022 and executed on a machine equipped with an Intel Core i5-1135G7 CPU (2.4 GHz) and 16 GB RAM, running Windows 11 (64-bit).
+This project implements the experiments for the unrelated parallel-machine speed-scaling problem, written in C. It requires **Gurobi 13.01** to be configured. All programs are compiled with Microsoft Visual Studio 2022 and executed on a machine equipped with an Intel Core i5-1135G7 CPU (2.4 GHz) and 16 GB RAM, running Windows 11 (64-bit).
 
 ### Code Structure
 - `Unrelated/src/`: Contains C source code files.
