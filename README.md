@@ -69,7 +69,7 @@ To extract the raw data required for the experimental section of the paper, foll
 1. Open a command prompt.
 2. Navigate to the x64 Release directory:
    ```cmd
-   cd C:\Users\Young\Desktop\ORArticle\Codes\x64\Release
+   cd .\UPMSS\x64\Release
    ```
 3. Run the batch file to execute the experiments:
    ```cmd
@@ -82,7 +82,7 @@ Once the experiments have finished generating data via `run.bat`, follow these s
 
 1. Switch into the results folder:
    ```cmd
-   cd C:\Users\Young\Desktop\ORArticle\Codes\x64\Release\results\unrelated
+   cd .\UPMSS\x64\Release\results\unrelated
    ```
 2. Run the data processing script using Python:
    ```cmd
