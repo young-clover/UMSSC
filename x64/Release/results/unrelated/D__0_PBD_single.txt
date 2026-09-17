@@ -1,75 +1,75 @@
 Instance: d05100_bounds.txt;
-RootLowerBound:10159.975053;RootUpperBound:10176.683953;RootGap:0.001642;RootRuntime:0.0900;NumCuts:84;NumIters:84;
-HeurUpperBound:10165.069960;HeurGap:0.000501;HeurRuntime:0.1140;
-FixingRuntime:0.0820;FixedNum:350
-LowerBound:10161.476936;UpperBound:10162.482371;Gap:0.000099;BranchTime:1.6450;Nodes:1423.000000;Status:2;
+RootLowerBound:9774.051094;RootUpperBound:9782.490188;RootGap:0.000863;RootRuntime:0.0900;NumCuts:85;NumIters:85;
+HeurUpperBound:9782.437963;HeurGap:0.000857;HeurRuntime:42.2530;
+FixingRuntime:0.1600;FixedNum:265
+LowerBound:9776.600101;UpperBound:9777.571875;Gap:0.000099;BranchTime:1.5590;Nodes:1843.000000;Status:2;
 Instance: d05200_bounds.txt;
-RootLowerBound:20251.060094;RootUpperBound:20261.617065;RootGap:0.000521;RootRuntime:0.1400;NumCuts:84;NumIters:84;
-HeurUpperBound:20255.780166;HeurGap:0.000233;HeurRuntime:0.1850;
-FixingRuntime:0.3760;FixedNum:749
-LowerBound:20251.915986;UpperBound:20253.554490;Gap:0.000081;BranchTime:3.5960;Nodes:3089.000000;Status:2;
+RootLowerBound:19470.257295;RootUpperBound:19483.581335;RootGap:0.000684;RootRuntime:0.1470;NumCuts:86;NumIters:86;
+HeurUpperBound:19477.713979;HeurGap:0.000383;HeurRuntime:0.3010;
+FixingRuntime:0.6040;FixedNum:591
+LowerBound:19471.877525;UpperBound:19473.790449;Gap:0.000098;BranchTime:8.0340;Nodes:9828.000000;Status:2;
 Instance: d10100_bounds.txt;
-RootLowerBound:9912.791389;RootUpperBound:9946.880266;RootGap:0.003427;RootRuntime:0.1520;NumCuts:93;NumIters:93;
-HeurUpperBound:9930.603597;HeurGap:0.001794;HeurRuntime:0.2770;
-FixingRuntime:1.0640;FixedNum:173
-LowerBound:9920.749349;UpperBound:9921.741515;Gap:0.000100;BranchTime:382.6900;Nodes:201915.000000;Status:2;
+RootLowerBound:9499.690427;RootUpperBound:9561.568513;RootGap:0.006472;RootRuntime:0.1640;NumCuts:95;NumIters:95;
+HeurUpperBound:9545.590373;HeurGap:0.004808;HeurRuntime:126.1400;
+FixingRuntime:1.4340;FixedNum:0
+LowerBound:9505.989370;UpperBound:9513.751090;Gap:0.000816;BranchTime:872.2710;Nodes:161533.000000;Status:9;
 Instance: d10200_bounds.txt;
-RootLowerBound:19766.493225;RootUpperBound:19810.547437;RootGap:0.002224;RootRuntime:0.1590;NumCuts:14;NumIters:93;
-HeurUpperBound:19790.289620;HeurGap:0.001202;HeurRuntime:0.6760;
-FixingRuntime:1.2020;FixedNum:31
-LowerBound:19769.241680;UpperBound:19790.143422;Gap:0.001056;BranchTime:997.9640;Nodes:268749.000000;Status:9;
+RootLowerBound:18907.787521;RootUpperBound:18968.426518;RootGap:0.003197;RootRuntime:0.1700;NumCuts:16;NumIters:95;
+HeurUpperBound:18943.600765;HeurGap:0.001891;HeurRuntime:0.8780;
+FixingRuntime:0.9870;FixedNum:0
+LowerBound:18909.611389;UpperBound:18943.600765;Gap:0.001794;BranchTime:997.9660;Nodes:310505.000000;Status:9;
 Instance: d10400_bounds.txt;
-RootLowerBound:39617.930131;RootUpperBound:39652.428175;RootGap:0.000870;RootRuntime:0.3260;NumCuts:14;NumIters:93;
-HeurUpperBound:39637.294744;HeurGap:0.000489;HeurRuntime:1.6170;
-FixingRuntime:4.2390;FixedNum:382
-LowerBound:39618.734206;UpperBound:39637.294744;Gap:0.000468;BranchTime:993.8220;Nodes:181091.000000;Status:9;
+RootLowerBound:37892.571663;RootUpperBound:37919.416945;RootGap:0.000708;RootRuntime:0.3790;NumCuts:12;NumIters:96;
+HeurUpperBound:37916.515449;HeurGap:0.000631;HeurRuntime:454.5150;
+FixingRuntime:4.2540;FixedNum:107
+LowerBound:37893.178339;UpperBound:37905.614607;Gap:0.000328;BranchTime:540.8870;Nodes:23408.000000;Status:9;
 Instance: d15900_bounds.txt;
-RootLowerBound:88326.773958;RootUpperBound:88378.012915;RootGap:0.000580;RootRuntime:1.7820;NumCuts:18;NumIters:102;
-HeurUpperBound:88351.140606;HeurGap:0.000276;HeurRuntime:5.5870;
-FixingRuntime:0.0150;FixedNum:45
-LowerBound:88326.924566;UpperBound:88351.140606;Gap:0.000274;BranchTime:992.7150;Nodes:24857.000000;Status:9;
+RootLowerBound:84098.575317;RootUpperBound:84160.909257;RootGap:0.000741;RootRuntime:2.1170;NumCuts:21;NumIters:110;
+HeurUpperBound:84151.008605;HeurGap:0.000623;HeurRuntime:29.6740;
+FixingRuntime:0.0030;FixedNum:0
+LowerBound:84098.695364;UpperBound:84151.008605;Gap:0.000622;BranchTime:968.2270;Nodes:23054.000000;Status:9;
 Instance: d20100_bounds.txt;
-RootLowerBound:9784.955905;RootUpperBound:9862.329485;RootGap:0.007845;RootRuntime:0.2400;NumCuts:22;NumIters:111;
-HeurUpperBound:9827.148766;HeurGap:0.004293;HeurRuntime:0.8840;
-FixingRuntime:1.7310;FixedNum:0
-LowerBound:9788.472665;UpperBound:9827.148766;Gap:0.003936;BranchTime:997.1550;Nodes:357369.000000;Status:9;
+RootLowerBound:9275.319243;RootUpperBound:9466.250220;RootGap:0.020170;RootRuntime:0.2790;NumCuts:26;NumIters:115;
+HeurUpperBound:9420.249081;HeurGap:0.015385;HeurRuntime:0.9440;
+FixingRuntime:1.6360;FixedNum:0
+LowerBound:9279.312975;UpperBound:9420.249081;Gap:0.014961;BranchTime:997.1530;Nodes:309275.000000;Status:9;
 Instance: d201600_bounds.txt;
-RootLowerBound:156163.496948;RootUpperBound:156228.952257;RootGap:0.000419;RootRuntime:5.8620;NumCuts:24;NumIters:113;
-HeurUpperBound:156192.228837;HeurGap:0.000184;HeurRuntime:7.7840;
-FixingRuntime:0.0000;FixedNum:0
-LowerBound:156163.548365;UpperBound:156192.228837;Gap:0.000184;BranchTime:986.4750;Nodes:5591.000000;Status:9;
+RootLowerBound:148046.735382;RootUpperBound:148159.937085;RootGap:0.000764;RootRuntime:8.2030;NumCuts:26;NumIters:145;
+HeurUpperBound:148145.889298;HeurGap:0.000669;HeurRuntime:61.2870;
+FixingRuntime:0.0070;FixedNum:0
+LowerBound:148046.782547;UpperBound:148098.246509;Gap:0.000347;BranchTime:930.5470;Nodes:4799.000000;Status:9;
 Instance: d20200_bounds.txt;
-RootLowerBound:19537.096680;RootUpperBound:19623.199691;RootGap:0.004388;RootRuntime:0.5280;NumCuts:25;NumIters:114;
-HeurUpperBound:19578.328409;HeurGap:0.002106;HeurRuntime:1.8070;
-FixingRuntime:6.7530;FixedNum:0
-LowerBound:19538.975194;UpperBound:19578.328409;Gap:0.002010;BranchTime:990.9350;Nodes:150043.000000;Status:9;
+RootLowerBound:18528.375186;RootUpperBound:18642.011430;RootGap:0.006096;RootRuntime:0.5920;NumCuts:22;NumIters:116;
+HeurUpperBound:18639.965371;HeurGap:0.005987;HeurRuntime:2.2480;
+FixingRuntime:6.6240;FixedNum:0
+LowerBound:18530.250868;UpperBound:18639.965371;Gap:0.005886;BranchTime:990.5370;Nodes:125590.000000;Status:9;
 Instance: d20400_bounds.txt;
-RootLowerBound:39106.963379;RootUpperBound:39183.878395;RootGap:0.001963;RootRuntime:1.2270;NumCuts:22;NumIters:116;
-HeurUpperBound:39147.767560;HeurGap:0.001042;HeurRuntime:97.9720;
-FixingRuntime:0.0000;FixedNum:0
-LowerBound:39107.579116;UpperBound:39140.047944;Gap:0.000830;BranchTime:900.8060;Nodes:42189.000000;Status:9;
-Instance: d30900_bounds.txt;
-RootLowerBound:87484.168499;RootUpperBound:87600.018665;RootGap:0.001322;RootRuntime:7.8120;NumCuts:33;NumIters:147;
-HeurUpperBound:87536.021734;HeurGap:0.000592;HeurRuntime:9.1550;
-FixingRuntime:0.0010;FixedNum:0
-LowerBound:87484.285744;UpperBound:87536.021734;Gap:0.000591;BranchTime:983.0700;Nodes:5088.000000;Status:9;
-Instance: d401600_bounds.txt;
-RootLowerBound:155017.909962;RootUpperBound:155139.718239;RootGap:0.000785;RootRuntime:31.9700;NumCuts:44;NumIters:198;
-HeurUpperBound:155079.089218;HeurGap:0.000395;HeurRuntime:17.8400;
-FixingRuntime:0.0010;FixedNum:0
-LowerBound:155017.920547;UpperBound:155079.089218;Gap:0.000394;BranchTime:950.2760;Nodes:2252.000000;Status:9;
-Instance: d40400_bounds.txt;
-RootLowerBound:38736.542243;RootUpperBound:38857.572399;RootGap:0.003115;RootRuntime:6.7930;NumCuts:41;NumIters:206;
-HeurUpperBound:38799.463832;HeurGap:0.001622;HeurRuntime:5.5720;
-FixingRuntime:0.0000;FixedNum:0
-LowerBound:38737.061039;UpperBound:38799.463832;Gap:0.001608;BranchTime:987.6850;Nodes:13306.000000;Status:9;
-Instance: d60900_bounds.txt;
-RootLowerBound:86964.218712;RootUpperBound:87202.014129;RootGap:0.002727;RootRuntime:53.5630;NumCuts:62;NumIters:346;
-HeurUpperBound:87054.409465;HeurGap:0.001036;HeurRuntime:18.3360;
+RootLowerBound:37099.764330;RootUpperBound:37197.612681;RootGap:0.002631;RootRuntime:1.5490;NumCuts:26;NumIters:135;
+HeurUpperBound:37189.195068;HeurGap:0.002405;HeurRuntime:5.7450;
 FixingRuntime:0.0020;FixedNum:0
-LowerBound:86964.389333;UpperBound:87054.409465;Gap:0.001034;BranchTime:928.4270;Nodes:2123.000000;Status:9;
+LowerBound:37100.202079;UpperBound:37189.195068;Gap:0.002393;BranchTime:992.7180;Nodes:55083.000000;Status:9;
+Instance: d30900_bounds.txt;
+RootLowerBound:83116.275223;RootUpperBound:83274.631100;RootGap:0.001902;RootRuntime:11.1210;NumCuts:36;NumIters:200;
+HeurUpperBound:83261.926893;HeurGap:0.001749;HeurRuntime:290.2880;
+FixingRuntime:0.0070;FixedNum:0
+LowerBound:83116.413564;UpperBound:83261.926893;Gap:0.001748;BranchTime:698.6710;Nodes:3913.000000;Status:9;
+Instance: d401600_bounds.txt;
+RootLowerBound:146770.152323;RootUpperBound:147028.871978;RootGap:0.001760;RootRuntime:52.2030;NumCuts:46;NumIters:310;
+HeurUpperBound:146990.513999;HeurGap:0.001499;HeurRuntime:65.4690;
+FixingRuntime:0.0170;FixedNum:0
+LowerBound:146770.169209;UpperBound:146990.513999;Gap:0.001499;BranchTime:882.4300;Nodes:1965.000000;Status:9;
+Instance: d40400_bounds.txt;
+RootLowerBound:36688.773920;RootUpperBound:36947.683107;RootGap:0.007007;RootRuntime:12.0800;NumCuts:43;NumIters:367;
+HeurUpperBound:36913.473223;HeurGap:0.006087;HeurRuntime:7.9450;
+FixingRuntime:0.0000;FixedNum:0
+LowerBound:36689.231659;UpperBound:36913.473223;Gap:0.006075;BranchTime:979.9920;Nodes:11774.000000;Status:9;
+Instance: d60900_bounds.txt;
+RootLowerBound:82308.936015;RootUpperBound:82677.934787;RootGap:0.004463;RootRuntime:109.7230;NumCuts:61;NumIters:701;
+HeurUpperBound:82631.958793;HeurGap:0.003909;HeurRuntime:32.2610;
+FixingRuntime:0.0010;FixedNum:0
+LowerBound:82309.004176;UpperBound:82631.958793;Gap:0.003908;BranchTime:858.1030;Nodes:1715.000000;Status:9;
 Instance: d801600_bounds.txt;
-RootLowerBound:154342.168053;RootUpperBound:154631.835674;RootGap:0.001873;RootRuntime:223.5810;NumCuts:86;NumIters:430;
-HeurUpperBound:154472.261451;HeurGap:0.000842;HeurRuntime:44.2680;
-FixingRuntime:0.0530;FixedNum:0
-LowerBound:154342.194456;UpperBound:154472.261451;Gap:0.000842;BranchTime:732.3890;Nodes:109.000000;Status:9;
+RootLowerBound:145996.514684;RootUpperBound:146489.048441;RootGap:0.003362;RootRuntime:505.4470;NumCuts:81;NumIters:1001;
+HeurUpperBound:146426.988751;HeurGap:0.002940;HeurRuntime:81.2100;
+FixingRuntime:0.0010;FixedNum:0
+LowerBound:145996.534455;UpperBound:146426.988751;Gap:0.002940;BranchTime:414.0930;Nodes:1.000000;Status:9;

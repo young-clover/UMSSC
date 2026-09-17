@@ -2,7 +2,11 @@
 
 This archive is distributed under the [MIT License](LICENSE).
 
+<<<<<<< Updated upstream
 The software and data in this repository are a snapshot of the software and data that were used in the research reported on in the paper *A Perspective Benders Decomposition Approach for Unrelated Parallel-Machine Speed Scaling* by the authors.
+=======
+The software and data in this repository constitute a snapshot of those used in the research reported in the paper *A Perspective Benders Decomposition Approach for Unrelated Parallel-Machine Speed Scaling* by K. Yang, R. Leus, R. Wang, and G. Song.
+>>>>>>> Stashed changes
 
 ## Description
 This project implements the experiments for the unrelated parallel-machine speed-scaling problem, written in C. It requires **Gurobi 13.01** to be configured. All programs are compiled with Microsoft Visual Studio 2022 and executed on a machine equipped with an Intel Core i5-1135G7 CPU (2.4 GHz) and 16 GB RAM, running Windows 11 (64-bit).
@@ -89,5 +93,3 @@ Once the experiments have finished generating data via `run.bat`, follow these s
    python analysis.py
    ```
    This will summarize the raw metrics and generate `results_final_summary.xlsx`, replicating the experiment tables shown in the paper.
-
-

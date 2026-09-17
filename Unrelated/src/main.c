@@ -65,6 +65,8 @@ int main(int argc, char* argv[]) {
 
     P = atof(argv[2]); // ∂¡»° P
     printf("Func_Arg (P): %s\n", (P == 0 ? "Hybrid" : argv[2]));
+            
+    
 
     printf("Method: %s\n", argv[3]); // ∂¡»° Method
     if (strcmp(argv[3], "PBD") == 0) {
@@ -97,6 +99,8 @@ int main(int argc, char* argv[]) {
 
         printf("\n++++++++++++++++++++ Solving %s ++++++++++++++++++++\n", instance_name);
         read_instance(instance_name, "unrelated");
+
+        
 
         output = open_file(output_text, "a+");
         fprintf(output, "Instance: %s;\n", instance_name);

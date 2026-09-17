@@ -1013,8 +1013,9 @@ void CutSeparator(void) {
     int unfixed_idx = 0;
     for (int i = 0; i < M; i++) {
         // Preprocessing 
-        if (P == 0)
-            P = P_array[i % 4]; // different P for each machine    
+        double P_current;
+        if (mixed_P_flag)
+            P_current = P_array[i % 4]; // different P for each machine    
         double vopt_i = 0, sum_x = 0;
         // compute temp variables
         for (int j = 0; j < N; j++) {
@@ -1112,7 +1113,7 @@ void CutSeparator(void) {
         // recover lambda
         if (active_count > 0) {
             int j = S[0];
-            lambda = (P - 1) * pow(W[j] / x[i * N + j], P);
+            lambda = (P - 1) * pow(W[j] / x[i * N + j], P_current);
         }
         else
             lambda = 0;
@@ -1132,15 +1133,15 @@ void CutSeparator(void) {
                 
             }
             else {
-                double tempValue = pow(W[j], P) * pow(x[i * N + j], 1 - P);				
+                double tempValue = pow(W[j], P_current) * pow(x[i * N + j], 1 - P_current);				
                 vopt_i += tempValue;
 
                 if (x[i * N + j] == L[j])
-                    alpha[j] = (1.0 - P) * pow(weight[i][j] / lower_bound[i][j], P) + lambda;
+                    alpha[j] = (1.0 - P_current) * pow(weight[i][j] / lower_bound[i][j], P_current) + lambda;
                 if (x[i * N + j] == U[j])
-                    beta[j] = -lambda - (1.0 - P) * pow(weight[i][j] / upper_bound[i][j], P);
+                    beta[j] = -lambda - (1.0 - P_current) * pow(weight[i][j] / upper_bound[i][j], P_current);
                 // 缓存子梯度
-                subgradient[i * N + j] = P * tempValue / Separating_Point[i * N + j]  + lower_bound[i][j] * alpha[j] - upper_bound[i][j] * beta[j];         
+                subgradient[i * N + j] = P_current * tempValue / Separating_Point[i * N + j]  + lower_bound[i][j] * alpha[j] - upper_bound[i][j] * beta[j];         
             }
             
             // cut structure

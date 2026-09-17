@@ -1,0 +1,2 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2757.652817;RootUpperBound:3119.854720;RootGap:0.116096;RootRuntime:0.5070;

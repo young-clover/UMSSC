@@ -7,6 +7,7 @@ char instance_name[256];
 FILE* input;
 FILE* output;
 
+int mixed_P_flag;// whether to use mixed P values for each job
 double Gap = 1.0;
 
 int pbd_mode = -1; // global variable: 0=SINGLE, 1=MULTI

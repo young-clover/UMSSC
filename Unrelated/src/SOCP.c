@@ -39,9 +39,12 @@ void SOCP(void) {
             vtype[varindex(i, j) + M * N] = GRB_CONTINUOUS;
             sprintf(varnames[varindex(i, j) + M * N], "x_(%d,%d)", i, j);
 
-            obj[varindex(i, j) + N * M * 2] = pow(weight[i][j], P);   // weight^P: all machines use same P
-            if (P == 0)// hibrid case with different P values
+            
+            if (mixed_P_flag)// hibrid case with different P values
                 obj[varindex(i, j) + N * M * 2] = pow(weight[i][j], P_array[i % 4]); // different P for each machine
+            else
+                obj[varindex(i, j) + N * M * 2] = pow(weight[i][j], P);   // weight^P: all machines use same P
+
             lb[varindex(i, j) + N * M * 2] = 0;
             ub[varindex(i, j) + N * M * 2] = GRB_INFINITY;
             vtype[varindex(i, j) + N * M * 2] = GRB_CONTINUOUS;
@@ -58,7 +61,7 @@ void SOCP(void) {
     free(lb);
     free(ub);
     free(vtype);
-    free_stringarray(varnames, char_array_size);
+    free_stringarray(varnames, numvars);
 
     /* Change sense to minimization */
     error = GRBsetintattr(model, GRB_INT_ATTR_MODELSENSE, GRB_MINIMIZE);
@@ -138,275 +141,10 @@ void SOCP(void) {
     free(cbeg);
     free(cind);
     free(cval);
-    free_stringarray(constrnames, char_array_size);
-
-    if (P == 1.5) {
-        // ==========================
-        // add w variables
-        // ==========================
-        int num_new_cols = M * N;
-        double* new_obj = create_double_vector(num_new_cols);
-        double* new_lb = create_double_vector(num_new_cols);
-        double* new_ub = create_double_vector(num_new_cols);
-        char* new_xctype = create_char_vector(num_new_cols);
-        char** new_colname = create_stringarray(num_new_cols, char_array_size);
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_w = varindex(i, j);
-
-                new_obj[idx_w] = 0.0;
-                new_lb[idx_w] = 0.0;
-                new_ub[idx_w] = GRB_INFINITY;
-                new_xctype[idx_w] = GRB_CONTINUOUS;
-                sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
-            }
-        }
-        error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
-        if (error) goto QUIT;
-
-        free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, char_array_size);
-
-        // ==========================
-        // SOC constraints
-        // w^2 <= x*y, y^2 <= w*z
-        // ==========================
-        char qsense = GRB_LESS_EQUAL;
-        double qrhs = 0.0;
-        int qnumnz = 2;
-        int qindrow[2], qindcol[2];
-        double qval[2] = { 1.0, -1.0 };
-        char qconstrname[char_array_size];
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_y = varindex(i, j);
-                int idx_x = M * N + idx_y;
-                int idx_z = 2 * M * N + idx_y;
-                int idx_w = 3 * M * N + idx_y;
-
-                // w^2 - x*y <= 0
-                qindrow[0] = idx_w; qindcol[0] = idx_w;   // w^2
-                qindrow[1] = idx_x; qindcol[1] = idx_y;   // -x*y
-                sprintf(qconstrname, "socp1(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-
-
-                // y^2 - w*z <= 0
-                qindrow[0] = idx_y; qindcol[0] = idx_y;   // y^2
-                qindrow[1] = idx_w; qindcol[1] = idx_z;   // -w*z
-                sprintf(qconstrname, "socp2(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-            }
-        }
-    }
-
-
-    if (P == 2.0) {
-        // ==========================
-        // Quadratic constraints y^2 <= x * z
-        // ==========================
-        char qsense = GRB_LESS_EQUAL;
-        double qrhs = 0.0;
-        int qnumnz = 2;
-        int qindrow[2], qindcol[2];
-        double qval[2] = { 1.0, -1.0 };
-        char qconstrname[char_array_size];
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-                int idx_y = varindex(i, j);
-                int idx_x = M * N + idx_y;
-                int idx_z = 2 * M * N + idx_y;
-                qindrow[0] = idx_y; qindcol[0] = idx_y; // y^2
-                qindrow[1] = idx_x; qindcol[1] = idx_z; // -xz
-                sprintf(qconstrname, "socp(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-            }
-        }
-    }
-
-    if (P == 2.5) {
-        // ==========================
-        // add w, u, v variables
-        // ==========================
-        int num_new_cols = 3 * M * N;  // w, u, v
-        double* new_obj = create_double_vector(num_new_cols);
-        double* new_lb = create_double_vector(num_new_cols);
-        double* new_ub = create_double_vector(num_new_cols);
-        char* new_xctype = create_char_vector(num_new_cols);
-        char** new_colname = create_stringarray(num_new_cols, char_array_size);
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_w = varindex(i, j);
-                int idx_u = M * N + varindex(i, j);
-                int idx_v = 2 * M * N + varindex(i, j);
-
-                // w_ij
-                new_obj[idx_w] = 0.0;
-                new_lb[idx_w] = 0.0;
-                new_ub[idx_w] = GRB_INFINITY;
-                new_xctype[idx_w] = GRB_CONTINUOUS;
-                sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
-
-                // u_ij
-                new_obj[idx_u] = 0.0;
-                new_lb[idx_u] = 0.0;
-                new_ub[idx_u] = GRB_INFINITY;
-                new_xctype[idx_u] = GRB_CONTINUOUS;
-                sprintf(new_colname[idx_u], "u_(%d,%d)", i, j);
-
-                // v_ij
-                new_obj[idx_v] = 0.0;
-                new_lb[idx_v] = 0.0;
-                new_ub[idx_v] = GRB_INFINITY;
-                new_xctype[idx_v] = GRB_CONTINUOUS;
-                sprintf(new_colname[idx_v], "v_(%d,%d)", i, j);
-            }
-        }
-
-        error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
-        if (error) goto QUIT;
-
-        free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, char_array_size);
-
-        // ==========================
-        // Add SOC constraints
-        // w^2 ¡Ü x*y, u^2 ¡Ü x*w, v^2 ¡Ü y*z, y^2 ¡Ü u*v
-        // ==========================
-        char qsense = GRB_LESS_EQUAL;
-        double qrhs = 0.0;
-        int qnumnz = 2;
-        int qindrow[2], qindcol[2];
-        double qval[2] = { 1.0, -1.0 };
-        char qconstrname[char_array_size];
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_y = varindex(i, j);
-                int idx_x = M * N + idx_y;
-                int idx_z = 2 * M * N + idx_y;
-
-                int idx_w = 3 * M * N + idx_y;
-                int idx_u = 4 * M * N + idx_y;
-                int idx_v = 5 * M * N + idx_y;
-
-                // w^2 ¡Ü x*y
-                qindrow[0] = idx_w; qindcol[0] = idx_w;
-                qindrow[1] = idx_x; qindcol[1] = idx_y;
-                sprintf(qconstrname, "socp1(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-
-                // u^2 ¡Ü x*w
-                qindrow[0] = idx_u; qindcol[0] = idx_u;
-                qindrow[1] = idx_x; qindcol[1] = idx_w;
-                sprintf(qconstrname, "socp2(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-
-                // v^2 ¡Ü y*z
-                qindrow[0] = idx_v; qindcol[0] = idx_v;
-                qindrow[1] = idx_y; qindcol[1] = idx_z;
-                sprintf(qconstrname, "socp3(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-
-                // y^2 ¡Ü u*v
-                qindrow[0] = idx_y; qindcol[0] = idx_y;
-                qindrow[1] = idx_u; qindcol[1] = idx_v;
-                sprintf(qconstrname, "socp4(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-            }
-        }
-    }
-
-
-    if (P == 3.0) {
-        // ==========================
-        // add w variables
-        // ==========================
-        int num_new_cols = M * N;
-        double* new_obj = create_double_vector(num_new_cols);
-        double* new_lb = create_double_vector(num_new_cols);
-        double* new_ub = create_double_vector(num_new_cols);
-        char* new_xctype = create_char_vector(num_new_cols);
-        char** new_colname = create_stringarray(num_new_cols, char_array_size);
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_w = varindex(i, j);
-
-                new_obj[idx_w] = 0.0;
-                new_lb[idx_w] = 0.0;
-                new_ub[idx_w] = GRB_INFINITY;
-                new_xctype[idx_w] = GRB_CONTINUOUS;
-                sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
-            }
-        }
-
-        error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
-        if (error) goto QUIT;
-
-        free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, char_array_size);
-
-        // ==========================
-        // SOC constraints
-        // w^2 <= y*z, y^2 <= w*x
-        // ==========================
-        char qsense = GRB_LESS_EQUAL;
-        double qrhs = 0.0;
-        int qnumnz = 2;
-        int qindrow[2], qindcol[2];
-        double qval[2] = { 1.0, -1.0 };
-        char qconstrname[char_array_size];
-
-        for (int i = 0; i < M; i++) {
-            for (int j = 0; j < N; j++) {
-
-                int idx_y = varindex(i, j);
-                int idx_x = M * N + idx_y;
-                int idx_z = 2 * M * N + idx_y;
-                int idx_w = 3 * M * N + idx_y;
-
-                // w^2 - y*z <= 0
-                qindrow[0] = idx_w; qindcol[0] = idx_w;   // w^2
-                qindrow[1] = idx_y; qindcol[1] = idx_z;   // -y*z
-                sprintf(qconstrname, "socp1(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-
-                // y^2 - w*x <= 0
-                qindrow[0] = idx_y; qindcol[0] = idx_y;   // y^2
-                qindrow[1] = idx_w; qindcol[1] = idx_x;   // -w*x
-                sprintf(qconstrname, "socp2(%d,%d)", i, j);
-                //Add a new quadratic constraint to a model.
-                error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
-                if (error) goto QUIT;
-            }
-        }
-    }
+    free_stringarray(constrnames, numconstrs);
 
     //hibrid case with different P values
-    if (P == 0) {
+    if (mixed_P_flag) {
         // ==========================
         // add w, u, v variables
         // ==========================
@@ -450,7 +188,7 @@ void SOCP(void) {
         error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
         if (error) goto QUIT;
 
-        free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, char_array_size);
+        free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, num_new_cols);
 
 
         // ==========================
@@ -554,8 +292,276 @@ void SOCP(void) {
             }
         }
     }
+    else {
 
-    //// Write model to 'miscop.lp'
+        if (P == 1.5) {
+            // ==========================
+            // add w variables
+            // ==========================
+            int num_new_cols = M * N;
+            double* new_obj = create_double_vector(num_new_cols);
+            double* new_lb = create_double_vector(num_new_cols);
+            double* new_ub = create_double_vector(num_new_cols);
+            char* new_xctype = create_char_vector(num_new_cols);
+            char** new_colname = create_stringarray(num_new_cols, char_array_size);
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_w = varindex(i, j);
+
+                    new_obj[idx_w] = 0.0;
+                    new_lb[idx_w] = 0.0;
+                    new_ub[idx_w] = GRB_INFINITY;
+                    new_xctype[idx_w] = GRB_CONTINUOUS;
+                    sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
+                }
+            }
+            error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
+            if (error) goto QUIT;
+
+            free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, num_new_cols);
+
+            // ==========================
+            // SOC constraints
+            // w^2 <= x*y, y^2 <= w*z
+            // ==========================
+            char qsense = GRB_LESS_EQUAL;
+            double qrhs = 0.0;
+            int qnumnz = 2;
+            int qindrow[2], qindcol[2];
+            double qval[2] = { 1.0, -1.0 };
+            char qconstrname[char_array_size];
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_y = varindex(i, j);
+                    int idx_x = M * N + idx_y;
+                    int idx_z = 2 * M * N + idx_y;
+                    int idx_w = 3 * M * N + idx_y;
+
+                    // w^2 - x*y <= 0
+                    qindrow[0] = idx_w; qindcol[0] = idx_w;   // w^2
+                    qindrow[1] = idx_x; qindcol[1] = idx_y;   // -x*y
+                    sprintf(qconstrname, "socp1(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+
+
+                    // y^2 - w*z <= 0
+                    qindrow[0] = idx_y; qindcol[0] = idx_y;   // y^2
+                    qindrow[1] = idx_w; qindcol[1] = idx_z;   // -w*z
+                    sprintf(qconstrname, "socp2(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+                }
+            }
+        }
+
+
+        if (P == 2.0) {
+            // ==========================
+            // Quadratic constraints y^2 <= x * z
+            // ==========================
+            char qsense = GRB_LESS_EQUAL;
+            double qrhs = 0.0;
+            int qnumnz = 2;
+            int qindrow[2], qindcol[2];
+            double qval[2] = { 1.0, -1.0 };
+            char qconstrname[char_array_size];
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+                    int idx_y = varindex(i, j);
+                    int idx_x = M * N + idx_y;
+                    int idx_z = 2 * M * N + idx_y;
+                    qindrow[0] = idx_y; qindcol[0] = idx_y; // y^2
+                    qindrow[1] = idx_x; qindcol[1] = idx_z; // -xz
+                    sprintf(qconstrname, "socp(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+                }
+            }
+        }
+
+        if (P == 2.5) {
+            // ==========================
+            // add w, u, v variables
+            // ==========================
+            int num_new_cols = 3 * M * N;  // w, u, v
+            double* new_obj = create_double_vector(num_new_cols);
+            double* new_lb = create_double_vector(num_new_cols);
+            double* new_ub = create_double_vector(num_new_cols);
+            char* new_xctype = create_char_vector(num_new_cols);
+            char** new_colname = create_stringarray(num_new_cols, char_array_size);
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_w = varindex(i, j);
+                    int idx_u = M * N + varindex(i, j);
+                    int idx_v = 2 * M * N + varindex(i, j);
+
+                    // w_ij
+                    new_obj[idx_w] = 0.0;
+                    new_lb[idx_w] = 0.0;
+                    new_ub[idx_w] = GRB_INFINITY;
+                    new_xctype[idx_w] = GRB_CONTINUOUS;
+                    sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
+
+                    // u_ij
+                    new_obj[idx_u] = 0.0;
+                    new_lb[idx_u] = 0.0;
+                    new_ub[idx_u] = GRB_INFINITY;
+                    new_xctype[idx_u] = GRB_CONTINUOUS;
+                    sprintf(new_colname[idx_u], "u_(%d,%d)", i, j);
+
+                    // v_ij
+                    new_obj[idx_v] = 0.0;
+                    new_lb[idx_v] = 0.0;
+                    new_ub[idx_v] = GRB_INFINITY;
+                    new_xctype[idx_v] = GRB_CONTINUOUS;
+                    sprintf(new_colname[idx_v], "v_(%d,%d)", i, j);
+                }
+            }
+
+            error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
+            if (error) goto QUIT;
+
+            free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, num_new_cols);
+
+            // ==========================
+            // Add SOC constraints
+            // w^2 ¡Ü x*y, u^2 ¡Ü x*w, v^2 ¡Ü y*z, y^2 ¡Ü u*v
+            // ==========================
+            char qsense = GRB_LESS_EQUAL;
+            double qrhs = 0.0;
+            int qnumnz = 2;
+            int qindrow[2], qindcol[2];
+            double qval[2] = { 1.0, -1.0 };
+            char qconstrname[char_array_size];
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_y = varindex(i, j);
+                    int idx_x = M * N + idx_y;
+                    int idx_z = 2 * M * N + idx_y;
+
+                    int idx_w = 3 * M * N + idx_y;
+                    int idx_u = 4 * M * N + idx_y;
+                    int idx_v = 5 * M * N + idx_y;
+
+                    // w^2 ¡Ü x*y
+                    qindrow[0] = idx_w; qindcol[0] = idx_w;
+                    qindrow[1] = idx_x; qindcol[1] = idx_y;
+                    sprintf(qconstrname, "socp1(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+
+                    // u^2 ¡Ü x*w
+                    qindrow[0] = idx_u; qindcol[0] = idx_u;
+                    qindrow[1] = idx_x; qindcol[1] = idx_w;
+                    sprintf(qconstrname, "socp2(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+
+                    // v^2 ¡Ü y*z
+                    qindrow[0] = idx_v; qindcol[0] = idx_v;
+                    qindrow[1] = idx_y; qindcol[1] = idx_z;
+                    sprintf(qconstrname, "socp3(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+
+                    // y^2 ¡Ü u*v
+                    qindrow[0] = idx_y; qindcol[0] = idx_y;
+                    qindrow[1] = idx_u; qindcol[1] = idx_v;
+                    sprintf(qconstrname, "socp4(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+                }
+            }
+        }
+
+
+        if (P == 3.0) {
+            // ==========================
+            // add w variables
+            // ==========================
+            int num_new_cols = M * N;
+            double* new_obj = create_double_vector(num_new_cols);
+            double* new_lb = create_double_vector(num_new_cols);
+            double* new_ub = create_double_vector(num_new_cols);
+            char* new_xctype = create_char_vector(num_new_cols);
+            char** new_colname = create_stringarray(num_new_cols, char_array_size);
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_w = varindex(i, j);
+
+                    new_obj[idx_w] = 0.0;
+                    new_lb[idx_w] = 0.0;
+                    new_ub[idx_w] = GRB_INFINITY;
+                    new_xctype[idx_w] = GRB_CONTINUOUS;
+                    sprintf(new_colname[idx_w], "w_(%d,%d)", i, j);
+                }
+            }
+
+            error = GRBaddvars(model, num_new_cols, 0, NULL, NULL, NULL, new_obj, new_lb, new_ub, new_xctype, new_colname);
+            if (error) goto QUIT;
+
+            free(new_obj); free(new_lb); free(new_ub); free(new_xctype); free_stringarray(new_colname, num_new_cols);
+
+            // ==========================
+            // SOC constraints
+            // w^2 <= y*z, y^2 <= w*x
+            // ==========================
+            char qsense = GRB_LESS_EQUAL;
+            double qrhs = 0.0;
+            int qnumnz = 2;
+            int qindrow[2], qindcol[2];
+            double qval[2] = { 1.0, -1.0 };
+            char qconstrname[char_array_size];
+
+            for (int i = 0; i < M; i++) {
+                for (int j = 0; j < N; j++) {
+
+                    int idx_y = varindex(i, j);
+                    int idx_x = M * N + idx_y;
+                    int idx_z = 2 * M * N + idx_y;
+                    int idx_w = 3 * M * N + idx_y;
+
+                    // w^2 - y*z <= 0
+                    qindrow[0] = idx_w; qindcol[0] = idx_w;   // w^2
+                    qindrow[1] = idx_y; qindcol[1] = idx_z;   // -y*z
+                    sprintf(qconstrname, "socp1(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+
+                    // y^2 - w*x <= 0
+                    qindrow[0] = idx_y; qindcol[0] = idx_y;   // y^2
+                    qindrow[1] = idx_w; qindcol[1] = idx_x;   // -w*x
+                    sprintf(qconstrname, "socp2(%d,%d)", i, j);
+                    //Add a new quadratic constraint to a model.
+                    error = GRBaddqconstr(model, 0, NULL, NULL, qnumnz, qindrow, qindcol, qval, qsense, qrhs, qconstrname);
+                    if (error) goto QUIT;
+                }
+            }
+        }
+    }
+    
+
+    // Write model to 'miscop.lp'
     //error = GRBwrite(model, "miscop.lp");
     //if (error) goto QUIT;
 

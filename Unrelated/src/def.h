@@ -32,6 +32,7 @@ typedef struct {
 
 
 // Global variables
+extern int mixed_P_flag; // whether to use mixed P values for each job
 extern char input_text[256];
 extern char output_text[256];
 extern char instances_path[256];

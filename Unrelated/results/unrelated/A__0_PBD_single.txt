@@ -1,0 +1,5 @@
+Instance: a05100_bounds.txt;
+RootLowerBound:2758.497478;RootUpperBound:2764.880107;RootGap:0.002308;RootRuntime:0.1610;NumCuts:107;NumIters:107;
+HeurUpperBound:2764.327087;HeurGap:0.002109;HeurRuntime:0.0520;
+FixingRuntime:0.1410;FixedNum:354
+LowerBound:2762.345378;UpperBound:2762.614489;Gap:0.000097;BranchTime:1.2090;Nodes:991.000000;Status:2;

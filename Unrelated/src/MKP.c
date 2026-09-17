@@ -24,8 +24,9 @@ void CutSeparatorLNS(int m1, int m2, const int* lns_sub_tasks, int k) {
         int i = machines[idx];
 
         // Preprocessing 
-        if (P == 0)
-            P = P_array[i % 4]; // different P for each machine    
+        double P_current;
+        if (mixed_P_flag)
+            P_current = P_array[i % 4]; // different P for each machine    
 
         double vopt_i = 0, sum_x = 0;
 
@@ -141,7 +142,7 @@ void CutSeparatorLNS(int m1, int m2, const int* lns_sub_tasks, int k) {
         if (active_count > 0) {
             int step = S[0];
             int j = lns_sub_tasks[step];
-            lambda = (P - 1) * pow(W[step] / x[i * N + j], P);
+            lambda = (P - 1) * pow(W[step] / x[i * N + j], P_current);
         }
         else {
             lambda = 0;
@@ -165,15 +166,15 @@ void CutSeparatorLNS(int m1, int m2, const int* lns_sub_tasks, int k) {
                 subgradient[step] = lower_bound[i][j] * alpha[j] - upper_bound[i][j] * beta[j];
             }
             else {
-                double tempValue = pow(W[step], P) * pow(x[i * N + j], 1 - P);
+                double tempValue = pow(W[step], P_current) * pow(x[i * N + j], 1 - P_current);
                 vopt_i += tempValue;
 
                 if (x[i * N + j] == L[step])
-                    alpha[j] = (1.0 - P) * pow(weight[i][j] / lower_bound[i][j], P) + lambda;
+                    alpha[j] = (1.0 - P_current) * pow(weight[i][j] / lower_bound[i][j], P_current) + lambda;
                 if (x[i * N + j] == U[step])
-                    beta[j] = -lambda - (1.0 - P) * pow(weight[i][j] / upper_bound[i][j], P);
+                    beta[j] = -lambda - (1.0 - P_current) * pow(weight[i][j] / upper_bound[i][j], P_current);
 
-                subgradient[step] = P * tempValue / sp + lower_bound[i][j] * alpha[j] - upper_bound[i][j] * beta[j];
+                subgradient[step] = P_current * tempValue / sp + lower_bound[i][j] * alpha[j] - upper_bound[i][j] * beta[j];
             }
             
 			benders_cut->val[step] += sign_sp * subgradient[step];// 注意 m2 的 subgradient 需要乘 -1

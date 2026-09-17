@@ -68,6 +68,12 @@ void initialize_memory(void) {
     LowerBound = -GRB_INFINITY;
 	LP_UpperBound = GRB_INFINITY;
 	UpperBound = GRB_INFINITY;
+
+    if (P == 0)
+        mixed_P_flag = 1; // 混合 P 模式
+    else
+		mixed_P_flag = 0; // 单一 P 模式
+
 	num_of_unfixed = M * N;
 	pre_fix_sum = 0.0;
 
